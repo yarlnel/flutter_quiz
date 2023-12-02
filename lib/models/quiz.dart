@@ -16,12 +16,22 @@ class Quiz {
     required this.d,
   });
 
+  static Quiz empty() => Quiz(
+      title: "hah",
+      answer: QuestionAnswer.A,
+      a: "",
+      b: "",
+      c: "",
+      d: ""
+  );
+
   @override
   String toString() =>
-      '$title'
+      '$title\n'
       'answer: $answer\n'
-      'a: $a'
-      'b: $b'
-      'd: $d'
-      'c: $c';
+      'a: $a\n'
+      'b: $b\n'
+      'd: $d\n'
+      'c: $c\n'
+      '\n\n\n';
 }

@@ -8,17 +8,19 @@ class QuizSource {
     static const String sourceUrl =
         "https://www.gkseries.com/sports/gk-multiple-choice-questions-and-answers";
 
+
+
     final dio = Dio();
 
-    Future<List<Quiz>> getQuizes() async {
+    Future<List<Quiz>> getQuizzes() async {
         var response = await dio.get(sourceUrl);
         if (response.statusCode != 200) {
             throw Exception('Error: server problems');
-            return [];
         }
+
         final document = parse(response.data);
 
-        List<Quiz> quizes = [];
+        List<Quiz> quizzes = [];
 
         for (Element element in document.querySelectorAll('div.mcq')) {
             var title = element
@@ -60,7 +62,7 @@ class QuizSource {
                 );
             }
 
-            quizes.add(
+            quizzes.add(
                 Quiz(
                     title: title,
                     answer: answer,
@@ -71,9 +73,10 @@ class QuizSource {
                 )
             );
         }
-        return quizes;
+        return quizzes;
     }
 }
-main() {
-    QuizSource().getQuizes().then(print);
+main() async {
+    var quizzes = await QuizSource().getQuizzes();
+    print(quizzes.first);
 }
